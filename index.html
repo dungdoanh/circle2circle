@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính số đường tròn nhỏ ở trong 1 đường tròn lớn</title>
+</head>
+<body>
+    <h1>Tính số đường tròn nhỏ (đều nhau) ở trong 1 đường tròn lớn</h1>
+    <p>Nhập bán kính 2 đường tròn:</p>
+    <label for="so_thu_nhat">Bán kính đường tròn lớn:</label>
+    <input type="number" id="so_thu_nhat">
+    <br>
+    <label for="so_thu_hai">Bán kính đường tròn lớn:</label>
+    <input type="number" id="so_thu_hai">
+    <br><br>
+    <button id="btn_tinh">Tính</button>
+
+    <p id="ket_qua"></p>
+
+    <script>
+
+		// Javascript program for the above approach
+
+		// Function to count number of smaller
+		// circles that can be inscribed in
+		// the larger circle touching its boundary
+		function countInscribed(R1, R2) 
+		{
+			// If R2 is greater than R1
+			if (R2 > R1)
+				return 0;
+
+			// Stores the angle made
+			// by the smaller circle
+			let angle;
+
+			// Stores the ratio
+			// of R2 / (R1 - R2)
+			let ratio;
+
+			// Stores the count of smaller
+			// circles that can be inscribed
+			let number_of_circles = 0;
+
+			// Stores the ratio
+			ratio = R2 / (R1 - R2);
+
+			// If the diameter of smaller
+			// circle is greater than the
+			// radius of the larger circle
+			if (R1 < 2 * R2) {
+				number_of_circles = 1;
+			}
+
+			// Otherwise
+			else {
+
+				// Find the angle using formula
+				angle = Math.abs(Math.asin(ratio) * 180)
+					/ 3.14159265;
+
+				// Divide 360 with angle
+				// and take the floor value
+				number_of_circles = 360
+					/ (2
+						* Math.floor(angle));
+			}
+
+			// Return the final result
+			return number_of_circles;
+		}
+        function tinhTong() {
+            var so_thu_nhat = parseInt(document.getElementById("so_thu_nhat").value);
+            var so_thu_hai = parseInt(document.getElementById("so_thu_hai").value);
+
+            // Tính tổng hai số
+            var tong = countInscribed(so_thu_nhat , so_thu_hai);
+
+            // Hiển thị kết quả
+            document.getElementById("ket_qua").innerHTML = "Tổng hai số là: " + tong;
+        }
+
+        document.getElementById("btn_tinh").addEventListener("click", tinhTong);
+        
+    </script>
+
+</body>
+</html>
